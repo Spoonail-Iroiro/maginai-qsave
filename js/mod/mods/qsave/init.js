@@ -67,7 +67,7 @@ class ShortcutKeyInterrupter {
               const fn = self.handlers[keyCode];
               // 非同期処理のため必ずPromiseで実行
               Promise.resolve().then(() => {
-                fn(self.end);
+                fn(self.end, self.recoverViewAbility);
               });
               // 本来のviewAbilityをブロックする
               // handlerがself.end()を適切に呼ぶことでキー受付のブロック解除とともに解除される
@@ -119,6 +119,8 @@ function save(end) {
             false
           );
         }
+      } catch (e) {
+        logger.error(e);
       } finally {
         end();
       }
@@ -133,11 +135,22 @@ function onF1Clicked(end) {
   save(end);
 }
 
+function onF2Clicked(end, recoverViewAbility) {
+  try {
+    recoverViewAbility();
+    tWgm.tGameTitle.viewTitle();
+  } catch (e) {
+    logger.error(e);
+    end();
+  }
+}
+
 let intr = new ShortcutKeyInterrupter();
 
 intr.patchIsClick();
 intr.patchViewSkill();
 
 intr.addHandler('f1', onF1Clicked);
+intr.addHandler('f2', onF2Clicked);
 
 export default intr;
