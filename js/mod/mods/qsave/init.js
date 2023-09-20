@@ -4,27 +4,27 @@ const logger = maginai.logging.getLogger('plustalk');
 const pt = maginai.patcher;
 
 class ShortcutKeyInterrupter {
-  _isAction;
+  _isDash;
   isOrigKeyProcessDisabled = false;
 
   disableOrigKeyProcessUntilNextIsActionFalse() {
     this.isOrigKeyProcessDisabled = true;
   }
 
-  patchIsAction(routineMap) {
+  patchIsDash(routineMap) {
     if (routineMap === undefined) {
       throw new Error('tGameRoutineMap is not loaded');
     }
-    this._isAction = routineMap.isAction;
-    delete routineMap.isAction;
+    this._isDash = routineMap.player.isDash;
+    delete routineMap.player.isDash;
     const self = this;
-    Object.defineProperty(routineMap, 'isAction', {
+    Object.defineProperty(routineMap.player, 'isDash', {
       set: function (value) {
         if (value === false) self.isOrigKeyProcessDisabled = false;
-        self._isAction = value;
+        self._isDash = value;
       },
       get: function () {
-        return self._isAction;
+        return self._isDash;
       },
     });
   }
@@ -75,7 +75,7 @@ intr.patchSetModeOverlook();
 
 maginai.events.gameLoadFinished.addHandler(() => {
   // isActionメンバーにパッチするのでtWgmが読み込まれてから
-  intr.patchIsAction(tWgm.tGameRoutineMap);
+  intr.patchIsDash(tWgm.tGameRoutineMap);
 });
 
 export default intr;
