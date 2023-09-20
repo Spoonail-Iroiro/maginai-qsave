@@ -1,5 +1,11 @@
 {
   "root": true,
+  "globals": {
+    "tGameKeyboard": true,
+    "tWgm": true,
+    "tGameMenu": true,
+    "tGameRoutineMap": true
+  },
   "env": {
     "browser": true,
     "es2021": true
