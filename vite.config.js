@@ -38,7 +38,10 @@ export default defineConfig({
         } catch (err) {
           if (err.code !== 'EEXIST') throw err;
         }
-        const assets = [];
+        const assets = [
+          //assets
+          'setting.js',
+        ];
         // Copy assets
         for (let assetName of assets) {
           await fs.cp(

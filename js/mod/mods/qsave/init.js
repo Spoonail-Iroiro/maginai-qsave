@@ -63,7 +63,7 @@ class ShortcutKeyInterrupter {
           for (const keyCode of Object.keys(self.handlers)) {
             const clicked = origMethod.call(this, keyCode, ...rest);
             if (clicked) {
-              logger.debug(`${keyCode} clicked!`);
+              logger.debug(`${keyCode} clicked`);
               const fn = self.handlers[keyCode];
               // 非同期処理のため必ずPromiseで実行
               Promise.resolve().then(() => {
@@ -150,7 +150,13 @@ let intr = new ShortcutKeyInterrupter();
 intr.patchIsClick();
 intr.patchViewSkill();
 
-intr.addHandler('f1', onF1Clicked);
-intr.addHandler('f2', onF2Clicked);
+const postprocess = maginai
+  .loadJsData('./js/mod/mods/qsave/setting.js')
+  .then((loaded) => {
+    const { save, load } = loaded;
+    intr.addHandler(save, onF1Clicked);
+    intr.addHandler(load, onF2Clicked);
+  })
+  .catch((e) => logger.error(e));
 
-export default intr;
+maginai.setModPostprocess(postprocess);
