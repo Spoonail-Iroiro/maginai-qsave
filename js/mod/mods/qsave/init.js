@@ -3,6 +3,23 @@ import maginai from 'maginai';
 const logger = maginai.logging.getLogger('plustalk');
 const pt = maginai.patcher;
 
+function save() {
+  const gm = tWgm;
+  gm.tGameSave.save(function (h) {
+    if (h) {
+      gm.tGameLog.addAndViewLog(
+        gm.tGameTalkResource.talkData.system.save_ok,
+        false
+      );
+    } else {
+      gm.tGameLog.addAndViewLog(
+        gm.tGameTalkResource.talkData.system.save_ng,
+        false
+      );
+    }
+  });
+}
+
 class ShortcutKeyInterrupter {
   _isDash;
   isOrigKeyProcessDisabled = false;
@@ -65,6 +82,7 @@ class ShortcutKeyInterrupter {
 
   onF1Clicked() {
     maginai.logToInGameLogDebug('F1 clicked!');
+    save();
   }
 }
 
