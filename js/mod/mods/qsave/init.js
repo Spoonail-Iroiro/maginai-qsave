@@ -1,6 +1,6 @@
 import maginai from 'maginai';
 
-const logger = maginai.logging.getLogger('plustalk');
+const logger = maginai.logging.getLogger('qsave');
 const pt = maginai.patcher;
 
 let isViewAbilityBlocked = false;
