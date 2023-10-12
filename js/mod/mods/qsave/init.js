@@ -97,7 +97,7 @@ function isSaveable() {
   return !islocked && isSaveEnable;
 }
 
-function save(end) {
+function doSave(end) {
   try {
     const gm = tWgm;
     if (!isSaveable()) {
@@ -131,10 +131,6 @@ function save(end) {
   }
 }
 
-function onF1Clicked(end) {
-  save(end);
-}
-
 function onF2Clicked(end, recoverViewAbility) {
   try {
     recoverViewAbility();
@@ -145,17 +141,39 @@ function onF2Clicked(end, recoverViewAbility) {
   }
 }
 
-let intr = new ShortcutKeyInterrupter();
-
-intr.patchIsClick();
-intr.patchViewSkill();
+// let intr = new ShortcutKeyInterrupter();
+//
+// intr.patchIsClick();
+// intr.patchViewSkill();
 
 const postprocess = maginai
   .loadJsData('./js/mod/mods/qsave/setting.js')
   .then((loaded) => {
     const { save, load } = loaded;
-    intr.addHandler(save, onF1Clicked);
-    intr.addHandler(load, onF2Clicked);
+    const available = maginai.MOD_COMMAND_KEY_CODES;
+    if (!available.includes(save) || !available.includes(load)) {
+      throw new Error(
+        `使用できないキーが設定されています。使用可能キー：${available}`
+      );
+    }
+    maginai.events.commandKeyClick.addHandler((e) => {
+      if (e.keyCode === save) {
+        // save内で発生する例外はhandle済
+        doSave(e.end);
+        return true;
+      } else if (e.keyCode === load) {
+        try {
+          tWgm.tGameTitle.viewTitle();
+          return true;
+        } catch (ex) {
+          // エラーが起こったとしてもendでtGameRoutineMapに戻すのは避けたほうがよさそう
+          logger.error(ex);
+          return true;
+        }
+      }
+    });
+    //   intr.addHandler(save, onF1Clicked);
+    // intr.addHandler(load, onF2Clicked);
   })
   .catch((e) => logger.error(e));
 

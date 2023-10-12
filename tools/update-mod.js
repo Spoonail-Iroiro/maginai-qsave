@@ -18,6 +18,6 @@ if (bakPath.existsSync()) {
 
 modDir.mvSync(bakPath);
 
-tempDir.t('mod').cpSync(modDir);
+tempDir.t('mod').mvSync(modDir);
 
 bakPath.t('mods').cpSync(modDir.t('mods'));
