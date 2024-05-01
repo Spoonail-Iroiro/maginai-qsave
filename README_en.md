@@ -14,7 +14,7 @@ Download and unzip latest `qsave-X.Y.Z.zip` from [Release](https://github.com/Sp
 `qsave` is the main folder of this mod.
 
 You can configure hot keys by editing `setting.js` in `qsave` folder.  
-Note that assignable keys are limited to 'F1' through 'F4'.
+Note that assignable keys are limited to `F1` through `F4`.
 
 ## Usage
 By default setting, you can save by `F1` and go back to the title by `F2`.
