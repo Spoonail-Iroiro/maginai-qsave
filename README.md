@@ -27,4 +27,4 @@ F1キーでセーブ・F2キーでタイトルに戻れるようになります�
 この他のケースでキーが効かない場合はエラーの可能性があります。  
 エラーの詳細は開発者コンソールから確認できます。  
 詳細を添えて下記まで連絡またはこのリポジトリのissueを立てて下さい。  
-[問い合わせ](https://github.com/Spoonail-Iroiro/maginai-plustalk/blob/master/USAGE.md#%E3%81%9D%E3%82%8C%E3%81%A7%E3%82%82%E3%81%86%E3%81%BE%E3%81%8F%E3%81%84%E3%81%8B%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D%E3%81%AF)
+[問い合わせ](https://whiteblackspace.hatenablog.com/contact-coaw)
