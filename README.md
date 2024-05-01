@@ -1,3 +1,5 @@
+[English](README_en.md)
+
 # qsave - 簡易クイックセーブ/ロードMod 
 ## 概要
 [maginai](https://github.com/Spoonail-Iroiro/maginai)で導入可能な異世界の創造者 非公式Modです。  
